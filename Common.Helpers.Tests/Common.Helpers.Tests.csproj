@@ -55,6 +55,7 @@
     <Compile Include="StringTests.cs" />
     <Compile Include="TextTests.cs" />
     <Compile Include="DateTimeTests.cs" />
+    <Compile Include="DrawingTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Common.Helpers\Common.Helpers.csproj">
