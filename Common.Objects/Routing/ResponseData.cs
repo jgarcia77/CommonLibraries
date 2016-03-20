@@ -1,7 +1,8 @@
 ﻿namespace Common.Objects.Routing
 {
+    using System;
     using System.Collections.Generic;
-
+    
     public class ResponseData
     {
         public ResponseData()

@@ -3,6 +3,7 @@
     using System.IO;
     using System.Runtime.Serialization.Json;
     using System.Text;
+    using System.Web.Script.Serialization;
 
     public class JsonHelper
     {
@@ -25,14 +26,8 @@
 
         public static T Deserialize<T>(string json)
         {
-            using (var mstream = new MemoryStream(Encoding.Unicode.GetBytes(json)))
-            {
-                var serializer = new DataContractJsonSerializer(typeof(T));
-
-                mstream.Position = 0;
-
-                return (T)serializer.ReadObject(mstream);
-            }
+            var serializer = new JavaScriptSerializer();
+            return (T)serializer.Deserialize<T>(json);
         }
     }
 }

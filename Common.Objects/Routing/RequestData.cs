@@ -7,7 +7,7 @@
     public abstract class RequestData : IDataValidator
     {
         #region IDataValidator
-        public List<ValidationResult> Errors { get; set; }
+        public List<ValidationResult> ValidationResultsList { get; set; }
         #endregion IDataValidator
     }
 }

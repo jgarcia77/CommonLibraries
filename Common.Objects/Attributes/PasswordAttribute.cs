@@ -5,7 +5,7 @@
     public class PasswordAttribute : RegularExpressionAttribute
     {
         public PasswordAttribute()
-            : base(@"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&]{12,25}")
+            : base(@"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&]{6,25}")
         { 
             
         }

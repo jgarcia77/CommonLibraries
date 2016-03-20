@@ -86,5 +86,151 @@
                 return (TimeZones)defaultTimeZoneId;
             }
         }
+
+        public static string WebApiRootFullPath
+        {
+            get
+            {
+                return ConfigurationManager.AppSettings["WebApi.RootFullPath"];
+            }
+        }
+
+        public static string UploadsRootPath
+        {
+            get
+            {
+                return ConfigurationManager.AppSettings["Uploads.RootPath"];
+            }
+        }
+
+        public static string UploadsImageBufferSource
+        {
+            get
+            {
+                var uploadsImageBufferDirectory =
+                    ConfigurationManager.AppSettings["Uploads.Image.BufferDirectory"].Replace(@"\", @"/");
+
+                var returnValue =
+                    string.Concat(ConfigHelper.DomainBaseUrl, UploadsRootPath.Replace(@"\", @"/"), uploadsImageBufferDirectory);
+
+                return returnValue;
+            }
+        }
+
+        public static string UploadsImageBufferDirectory
+        {
+            get
+            {
+                var uploadsImageBufferDirectory = ConfigurationManager.AppSettings["Uploads.Image.BufferDirectory"];
+                var returnValue = string.Concat(UploadsRootPath, uploadsImageBufferDirectory);
+                return returnValue;
+            }
+        }
+
+        public static string UploadsImageStageSource
+        {
+            get
+            {
+                var uploadsImageStageDirectory =
+                    ConfigurationManager.AppSettings["Uploads.Image.StageDirectory"].Replace(@"\", @"/");
+
+                var returnValue =
+                    string.Concat(ConfigHelper.DomainBaseUrl, UploadsRootPath.Replace(@"\", @"/"), uploadsImageStageDirectory);
+
+                return returnValue;
+            }
+        }
+
+        public static string UploadsImageStageDirectory
+        {
+            get
+            {
+                var uploadsImageStageDirectory = ConfigurationManager.AppSettings["Uploads.Image.StageDirectory"];
+                var returnValue = string.Concat(UploadsRootPath, uploadsImageStageDirectory);
+                return returnValue;
+            }
+        }
+
+        public static string UploadsImageLiveSource
+        {
+            get
+            {
+                var uploadsImageLiveDirectory =
+                    ConfigurationManager.AppSettings["Uploads.Image.LiveDirectory"].Replace(@"\", @"/");
+
+                var returnValue =
+                    string.Concat(ConfigHelper.DomainBaseUrl, UploadsRootPath.Replace(@"\", @"/"), uploadsImageLiveDirectory);
+
+                return returnValue;
+            }
+        }
+
+        public static string UploadsImageLiveDirectory
+        {
+            get
+            {
+                var uploadsImageLiveDirectory = ConfigurationManager.AppSettings["Uploads.Image.LiveDirectory"];
+                var returnValue = string.Concat(UploadsRootPath, uploadsImageLiveDirectory);
+                return returnValue;
+            }
+        }
+
+        public static string DefaultAvatar
+        {
+            get
+            {
+                var defaultAvatar = ConfigurationManager.AppSettings["DefaultAvatar"];
+                var returnValue = string.Concat(UploadsImageLiveDirectory, defaultAvatar);
+                return returnValue;
+            }
+        }
+
+        public static int UploadsImageMinSize
+        {
+            get
+            {
+                return int.Parse(ConfigurationManager.AppSettings["Uploads.Image.MinSize"]);
+            }
+        }
+
+        public static int UploadsImageMaxSize
+        {
+            get
+            {
+                return int.Parse(ConfigurationManager.AppSettings["Uploads.Image.MaxSize"]);
+            }
+        }
+
+        public static int UploadsImageMaxWidth
+        {
+            get
+            {
+                return int.Parse(ConfigurationManager.AppSettings["Uploads.Image.MaxWidth"]);
+            }
+        }
+
+        public static int UploadsImageMaxHeight
+        {
+            get
+            {
+                return int.Parse(ConfigurationManager.AppSettings["Uploads.Image.MaxHeight"]);
+            }
+        }
+
+        public static int InfiniteScrollMaxSearchResultsLess
+        {
+            get
+            {
+                return int.Parse(ConfigurationManager.AppSettings["InfiniteScroll.MaxSearchResultsLess"]);
+            }
+        }
+
+        public static int InfiniteScrollMaxSearchResultsDisplay
+        {
+            get
+            {
+                return int.Parse(ConfigurationManager.AppSettings["InfiniteScroll.MaxSearchResultsDisplay"]);
+            }
+        }
     }
 }

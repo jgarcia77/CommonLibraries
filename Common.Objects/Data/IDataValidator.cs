@@ -9,7 +9,7 @@
 
     public interface IDataValidator
     {
-        List<ValidationResult> Errors { get; set; }
+        List<ValidationResult> ValidationResultsList { get; set; }
     }
 
     public static class DataValidatorExtension
@@ -25,10 +25,10 @@
             var context = new ValidationContext(instance, null, null);
             if (!Validator.TryValidateObject(instance, context, validationResults, true))
             {
-                if (instance.Errors == null)
-                    instance.Errors = new List<ValidationResult>();
+                if (instance.ValidationResultsList == null)
+                    instance.ValidationResultsList = new List<ValidationResult>();
 
-                instance.Errors.AddRange(validationResults);
+                instance.ValidationResultsList.AddRange(validationResults);
                 return false;
             }
 
@@ -42,7 +42,7 @@
         /// <returns></returns>
         public static bool HasErrors(this IDataValidator instance)
         {
-            return (instance.Errors != null && instance.Errors.Count() > 0);
+            return (instance.ValidationResultsList != null && instance.ValidationResultsList.Count() > 0);
         }
 
         /// <summary>
@@ -55,7 +55,7 @@
             var returnList = new List<string>();
             if (instance.HasErrors())
             {
-                foreach (var error in instance.Errors)
+                foreach (var error in instance.ValidationResultsList)
                     returnList.Add(error.ErrorMessage);
             }
             return returnList;
@@ -68,10 +68,10 @@
         /// <param name="error"></param>
         public static void AddError(this IDataValidator instance, string fieldName, string error)
         {
-            if (instance.Errors == null)
-                instance.Errors = new List<ValidationResult>();
+            if (instance.ValidationResultsList == null)
+                instance.ValidationResultsList = new List<ValidationResult>();
 
-            instance.Errors.Add(new ValidationResult(error, new List<string>() { fieldName }));
+            instance.ValidationResultsList.Add(new ValidationResult(error, new List<string>() { fieldName }));
         }
     }
 }

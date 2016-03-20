@@ -110,6 +110,16 @@
                         return returnValue;
                     }
                 }
+
+                public static string BoardAccessApproval
+                {
+                    get
+                    {
+                        var fileName = string.Concat(FolderName, "BoardAccessApproval.html");
+                        var returnValue = Path.Combine(EmailReference.RootPath, fileName);
+                        return returnValue;
+                    }
+                }
             }
 
         }
