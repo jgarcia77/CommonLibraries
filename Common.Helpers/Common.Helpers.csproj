@@ -57,7 +57,9 @@
   <ItemGroup>
     <Compile Include="Configuration\ConfigHelper.cs" />
     <Compile Include="DateTime\DateHelper.cs" />
-    <Compile Include="Drawing\ImageHelper.cs" />
+    <Compile Include="Drawing\ImageHelper.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Http\ApiHelper.cs" />
     <Compile Include="IO\CsvReaderHelper.cs" />
     <Compile Include="IO\CsvWriterHelper.cs" />
