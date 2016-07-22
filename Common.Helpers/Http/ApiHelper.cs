@@ -14,18 +14,28 @@
         protected string ApiBaseUrl { get; set; }
         protected string ApiResource { get; set; }
 
-        private HttpClient BuildHttpClient()
-        {
-            var client = new HttpClient { BaseAddress = new Uri(ApiBaseUrl) };
+        private HttpClient client;
 
+        public ApiHelper(string apiBaseUrl)
+        {
+            this.ApiBaseUrl = apiBaseUrl;
+            client = new HttpClient { BaseAddress = new Uri(ApiBaseUrl) };
             client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
-            return client;
+        }
+
+        public void AddHeader(string name, string value)
+        {
+            if (client.DefaultRequestHeaders.Contains(name))
+            {
+                client.DefaultRequestHeaders.Remove(name);
+            }
+
+            client.DefaultRequestHeaders.Add(name, value);
         }
 
         public T Post<T, R>(string resource, R request)
         {
-            var client = BuildHttpClient();
             var response = client.PostAsJsonAsync<R>(resource, request).Result;
 
             var json = response.Content.ReadAsStringAsync().Result;
@@ -52,7 +62,6 @@
 
         public T Get<T>(string resource)
         {
-            var client = BuildHttpClient();
             var response = client.GetAsync(resource).Result;
 
             var json = response.Content.ReadAsStringAsync().Result;
@@ -79,7 +88,6 @@
 
         public T Put<T, R>(string resource, R request)
         {
-            var client = BuildHttpClient();
             var response = client.PutAsJsonAsync<R>(resource, request).Result;
 
             var json = response.Content.ReadAsStringAsync().Result;

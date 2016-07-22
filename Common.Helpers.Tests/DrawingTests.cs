@@ -72,5 +72,22 @@ namespace Common.Helpers.Tests
             Assert.AreEqual(300, scale2.Width);
             Assert.AreEqual(110, scale2.Height);
         }
+
+        [TestMethod]
+        public void ScaleDownHops()
+        {
+            var quadrilateral = new Quadrilateral(500, 500);
+
+            var scale1 = quadrilateral.Scale(618, 348);
+
+            Assert.AreEqual(500, scale1.Width);
+            Assert.AreEqual(282, scale1.Height);
+
+            quadrilateral = new Quadrilateral(45, 45);
+            scale1 = quadrilateral.Scale(scale1.Width, scale1.Height);
+
+            Assert.AreEqual(45, scale1.Width);
+            Assert.AreEqual(25, scale1.Height);
+        }
     }
 }

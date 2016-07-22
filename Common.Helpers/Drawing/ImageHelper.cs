@@ -197,7 +197,10 @@
             {
                 var rotateFlipType = GetRotateFlipType(orientationValue);
 
-                SaveRotateFlip(rotateFlipType);
+                if (rotateFlipType != RotateFlipType.RotateNoneFlipNone)
+                {
+                    SaveRotateFlip(rotateFlipType);
+                }
             }
         }
 

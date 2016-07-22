@@ -14,6 +14,23 @@
             this.EncryptionKey = ASCIIEncoding.ASCII.GetBytes(encryptionKey);
         }
 
+        public string Encrypt(string value, int iterations)
+        {
+            var returnValue = new StringBuilder();
+            var buffer = new StringBuilder(value);
+
+            for (var i = 1; i <= iterations; i++)
+            {
+                returnValue.Clear();
+                returnValue.Append(Encrypt(buffer.ToString()));
+
+                buffer.Clear();
+                buffer.Append(returnValue.ToString());
+            }
+
+            return returnValue.ToString();
+        }
+
         /// <summary>
         /// Encryption using DESCryptoServiceProvider
         /// </summary>
@@ -36,6 +53,23 @@
             return Convert.ToBase64String(memoryStream.GetBuffer(), 0, (int)memoryStream.Length);
         }
 
+
+        public string Decrypt(string value, int iterations)
+        {
+            var returnValue = new StringBuilder();
+            var buffer = new StringBuilder(value);
+
+            for (var i = 1; i <= iterations; i++)
+            {
+                returnValue.Clear();
+                returnValue.Append(Decrypt(buffer.ToString()));
+
+                buffer.Clear();
+                buffer.Append(returnValue.ToString());
+            }
+
+            return returnValue.ToString();
+        }
 
         /// <summary>
         /// Decryption using DESCryptoServiceProvider

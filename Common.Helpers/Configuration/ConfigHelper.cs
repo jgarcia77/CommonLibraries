@@ -232,5 +232,21 @@
                 return int.Parse(ConfigurationManager.AppSettings["InfiniteScroll.MaxSearchResultsDisplay"]);
             }
         }
+
+        public static string AnitForgeryTokenKey
+        {
+            get
+            {
+                return ConfigurationManager.AppSettings["AnitForgeryTokenKey"];
+            }
+        }
+
+        public static int EncryptionIterations
+        {
+            get
+            {
+                return int.Parse(ConfigurationManager.AppSettings["EncryptionIterations"]);
+            }
+        }
     }
 }

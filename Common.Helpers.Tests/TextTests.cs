@@ -4,6 +4,7 @@
     using Microsoft.VisualStudio.TestTools.UnitTesting;
     using Common.Helpers.Text;
     using Common.Helpers.Configuration;
+    using System.Collections.Generic;
 
     [TestClass]
     public class TextTests
@@ -48,6 +49,88 @@
             Assert.AreEqual(three, int.Parse(threeDecrypted));
             Assert.AreEqual(four, int.Parse(fourDecrypted));
             Assert.AreEqual(five, int.Parse(fiveDecrypted));
+        }
+
+        [TestMethod]
+        public void Encrypt_Iterations_Pass()
+        {
+            var cryptographyHelper = new CryptographyHelper(ConfigHelper.RegistrationEncryptionKey);
+
+            var value = long.MaxValue.ToString();
+            var iterations = 5;
+
+            var encryptedValue = cryptographyHelper.Encrypt(value, iterations);
+
+            var decryptedValue = cryptographyHelper.Decrypt(encryptedValue, iterations);
+
+            Assert.AreEqual(value, decryptedValue);
+        }
+
+        [TestMethod]
+        public void ParseTags_NoResults_Pass()
+        {
+            var value = "select * from tableName";
+            var output = new List<string>();
+            var result = StringHelper.ParseTags("[[", "]]", value, output);
+
+            Assert.IsTrue(result);
+            Assert.AreEqual(0, output.Count);
+        }
+
+        [TestMethod]
+        public void ParseTags_NoResults_Fail()
+        {
+            var value = "select * from tableName where field1 = [[";
+            var output = new List<string>();
+            var result = StringHelper.ParseTags("[[", "]]", value, output);
+
+            Assert.IsFalse(result);
+            Assert.AreEqual(0, output.Count);
+        }
+
+        [TestMethod]
+        public void ParseTags_OneResult_Pass()
+        {
+            var value = "select * from tableName where field1 = [[parm1]]";
+            var output = new List<string>();
+            var result = StringHelper.ParseTags("[[", "]]", value, output);
+
+            Assert.IsTrue(result);
+            Assert.AreEqual(1, output.Count);
+        }
+
+        [TestMethod]
+        public void ParseTags_OneResult_Fail()
+        {
+            var value = "select * from tableName where field1 = [[parm1]] and field2 = [[parm2";
+            var output = new List<string>();
+            var result = StringHelper.ParseTags("[[", "]]", value, output);
+
+            Assert.IsFalse(result);
+            Assert.AreEqual(1, output.Count);
+        }
+
+        [TestMethod]
+        public void ParseTags_TwoResult_Pass()
+        {
+            var value = "select * from tableName where field1 = [[parm1]] and field2 = [[parm2]]";
+            var output = new List<string>();
+            var result = StringHelper.ParseTags("[[", "]]", value, output);
+
+            Assert.IsTrue(result);
+            Assert.AreEqual(2, output.Count);
+        }
+
+
+        [TestMethod]
+        public void ParseTagsWithLineBreaks_TwoResult_Pass()
+        {
+            var value = @"\n\r\n\rselect * \n\rfrom tableName \n\rwhere field1 = \n\r\n\[[\n\r\n\parm1\n\r\n\]] \n\rand field2 = [[parm2]]           ";
+            var output = new List<string>();
+            var result = StringHelper.ParseTags("[[", "]]", value, output);
+
+            Assert.IsTrue(result);
+            Assert.AreEqual(2, output.Count);
         }
     }
 }
